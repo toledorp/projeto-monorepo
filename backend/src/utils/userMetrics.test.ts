@@ -22,10 +22,34 @@ describe('Cálculo de Estatísticas e Métricas: userMetrics.ts', () => {
   it('deve calcular corretamente 50% de contas ativas quando metade dos usuários estiver ativa', () => {
     // Arrange
     const users: UserAccount[] = [
-      { id: 1, name: 'Carlos', email: 'carlos@fatec.sp.gov.br', role: 'aluno', status: 'ativo' },
-      { id: 2, name: 'Ana', email: 'ana@fatec.sp.gov.br', role: 'professor', status: 'ativo' },
-      { id: 3, name: 'Beatriz', email: 'beatriz@fatec.sp.gov.br', role: 'aluno', status: 'pendente' },
-      { id: 4, name: 'Daniel', email: 'daniel@fatec.sp.gov.br', role: 'admin', status: 'inativo' },
+      {
+        id: 1,
+        name: 'Carlos',
+        email: 'carlos@fatec.sp.gov.br',
+        role: 'aluno',
+        status: 'ativo',
+      },
+      {
+        id: 2,
+        name: 'Ana',
+        email: 'ana@fatec.sp.gov.br',
+        role: 'professor',
+        status: 'ativo',
+      },
+      {
+        id: 3,
+        name: 'Beatriz',
+        email: 'beatriz@fatec.sp.gov.br',
+        role: 'aluno',
+        status: 'pendente',
+      },
+      {
+        id: 4,
+        name: 'Daniel',
+        email: 'daniel@fatec.sp.gov.br',
+        role: 'admin',
+        status: 'inativo',
+      },
     ];
 
     // Act
@@ -42,8 +66,20 @@ describe('Cálculo de Estatísticas e Métricas: userMetrics.ts', () => {
   it('deve retornar 100% de usuários ativos quando todas as contas estiverem ativas', () => {
     // Arrange
     const users: UserAccount[] = [
-      { id: 1, name: 'Carlos', email: 'carlos@fatec.sp.gov.br', role: 'aluno', status: 'ativo' },
-      { id: 2, name: 'Ana', email: 'ana@fatec.sp.gov.br', role: 'professor', status: 'ativo' },
+      {
+        id: 1,
+        name: 'Carlos',
+        email: 'carlos@fatec.sp.gov.br',
+        role: 'aluno',
+        status: 'ativo',
+      },
+      {
+        id: 2,
+        name: 'Ana',
+        email: 'ana@fatec.sp.gov.br',
+        role: 'professor',
+        status: 'ativo',
+      },
     ];
 
     // Act

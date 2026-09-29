@@ -11,6 +11,7 @@ export interface User {
 export interface CreateUseDTO {
     nome: string;
     email: string;
-    senha_hash: string;
+    password?: string;
+    senha_hash?: string;
 }
 

@@ -1,7 +1,7 @@
 
 import type { User, CreateUseDTO } from "../types/user";
 
-const API_BASE_URL = "http://localhost.3000/api";
+const API_BASE_URL = "http://localhost:3000/api";
 
 export const userService = {
     //Get / api/users - Listar todos os usuarios
@@ -15,7 +15,7 @@ export const userService = {
     },
 
     //Post / api/users - Cadastrar novo usuarios
-    async create(dados: CreateUseDTO): Promise<User[]>{
+    async create(dados: CreateUseDTO): Promise<User>{
         const resposta = await fetch(`${API_BASE_URL}/users`, {
             method: "POST",
             headers: {

@@ -81,7 +81,7 @@ describe('Módulo de Validação: validators.ts', () => {
       expect(validation.isValid).toBe(true);
       expect(validation.errors).toHaveLength(0);
     });
-    
+
     it('deve retornar erro quando o nome tiver menos de 3 caracteres', () => {
       //Arrange
       const input: Partial<UserInput> = {
@@ -99,12 +99,12 @@ describe('Módulo de Validação: validators.ts', () => {
       );
     });
 
-    it('deve retornar erro para perfil de acesso inválido', () =>{
+    it('deve retornar erro para perfil de acesso inválido', () => {
       //Arrange
       const input = {
         name: 'Carlos Silva',
         email: 'carlos.silva@fatec.sp.gov.br',
-        role: 'visitante'as any,
+        role: 'visitante' as any,
       };
 
       //ACT
@@ -114,7 +114,7 @@ describe('Módulo de Validação: validators.ts', () => {
       expect(validation.isValid).toBe(false);
       expect(validation.errors).toContain(
         'O Perfil de acesso informado é inválido.',
-      )
+      );
     });
   });
 });
