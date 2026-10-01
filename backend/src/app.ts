@@ -6,7 +6,7 @@ import { appRoutes } from './routes';
 
 const app = express();
 
-//Middleware globais
+// Middlewares globais
 app.use(cors());
 app.use(express.json());
 
@@ -19,7 +19,7 @@ app.get('/api/health', (req: Request, res: Response) => {
   });
 });
 
-// Rota da documentação interqtiva
+// Rota da documentação interativa
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Registra todas as rotas da aplicacao sob o prefixo /api

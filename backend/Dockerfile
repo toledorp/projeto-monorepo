@@ -1,7 +1,7 @@
 # 1. Define a imagem de origem base 
 FROM node:24-alpine
 
-# Configura diretorio global do pnpm
+# Configura o diretório global do pnpm
 ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 

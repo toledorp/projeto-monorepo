@@ -31,13 +31,7 @@ export function Input({
         textAlign: "left",
       }}
     >
-      <label
-        style={{
-          fontWeight: 600,
-          fontSize: "0.9rem",
-          color: "#374151",
-        }}
-      >
+      <label style={{ fontWeight: 600, fontSize: "0.9rem", color: "#374151" }}>
         {label} {required && <span style={{ color: "#dc2626" }}>*</span>}
       </label>
       <input
@@ -56,21 +50,9 @@ export function Input({
         }}
       />
       {error ? (
-        <span
-          style={{
-            fontSize: "0.8rem",
-            color: "#dc2626",
-          }}
-        >
-          {error}
-        </span>
+        <span style={{ fontSize: "0.8rem", color: "#dc2626" }}>{error}</span>
       ) : helperText ? (
-        <span
-          style={{
-            fontSize: "0.8rem",
-            color: "#6b7280",
-          }}
-        >
+        <span style={{ fontSize: "0.8rem", color: "#6b7280" }}>
           {helperText}
         </span>
       ) : null}

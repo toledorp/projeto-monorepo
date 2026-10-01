@@ -6,22 +6,16 @@ export interface UserTableProps {
 }
 
 export function UserTable({ usuarios, carregando }: UserTableProps) {
-  // Estado 1 Carregando
+  // Estado 1: Carregamento
   if (carregando) {
     return (
-      <div
-        style={{
-          textAlign: "center",
-          padding: "32px",
-          color: "#6b7280",
-        }}
-      >
-        Carregando Lista de Usuários
+      <div style={{ textAlign: "center", padding: "32px", color: "#6b7280" }}>
+        Carregando lista de usuários...
       </div>
     );
   }
 
-  //Estado 2: Nenhum registro encontrado
+  // Estado 2: Nenhum registro encontrado
   if (usuarios.length === 0) {
     return (
       <div
@@ -33,7 +27,7 @@ export function UserTable({ usuarios, carregando }: UserTableProps) {
           borderRadius: "8px",
         }}
       >
-        Nenhum usuario cadastrado até o momento
+        Nenhum usuário cadastrado até o momento.
       </div>
     );
   }
@@ -42,11 +36,7 @@ export function UserTable({ usuarios, carregando }: UserTableProps) {
   return (
     <div style={{ overflowX: "auto" }}>
       <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          marginTop: "8px",
-        }}
+        style={{ width: "100%", borderCollapse: "collapse", marginTop: "8px" }}
       >
         <thead>
           <tr
@@ -113,7 +103,7 @@ export function UserTable({ usuarios, carregando }: UserTableProps) {
                   color: "#111827",
                 }}
               >
-                #{usuario.nome}
+                {usuario.nome}
               </td>
               <td
                 style={{
@@ -121,7 +111,7 @@ export function UserTable({ usuarios, carregando }: UserTableProps) {
                   color: "#4b5563",
                 }}
               >
-                #{usuario.email}
+                {usuario.email}
               </td>
               <td
                 style={{

@@ -86,7 +86,7 @@ export default function App() {
         }}
       >
         <h1
-          style={{ margin: "0 0 6px 0", fontSize: "1.8rem", color: "#ffffff" }}
+          style={{ margin: "0 0 6px 0", fontSize: "1.8rem", color: "#111827" }}
         >
           Painel de Gestão de Usuários
         </h1>

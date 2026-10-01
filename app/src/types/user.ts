@@ -1,17 +1,15 @@
-
-// Contrato do usuario retornado pelo banco de dados
+// Contrato do Usuário retornado pelo banco de dados
 export interface User {
-    id : number;
-    nome: string;
-    email: string;
-    createdAt: string;
+  id: number;
+  nome: string;
+  email: string;
+  createdAt: string;
 }
 
-// dados necessário para cadastrar um novo usuario]
-export interface CreateUseDTO {
-    nome: string;
-    email: string;
-    password?: string;
-    senha_hash?: string;
+// Dados necessários para cadastrar um novo usuario
+export interface CreateUserDTO {
+  nome: string;
+  email: string;
+  password?: string;
+  senha_hash?: string;
 }
-

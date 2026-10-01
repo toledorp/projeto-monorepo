@@ -2,8 +2,10 @@ import { describe, it, expect } from 'vitest';
 import {
   isValidEmail,
   isStrongPassword,
-  validateUserInput,
   UserInput,
+  validateUserInput,
+  //validateUserInput,
+  //UserInput,
 } from './validators';
 
 describe('Módulo de Validação: validators.ts', () => {
@@ -64,9 +66,9 @@ describe('Módulo de Validação: validators.ts', () => {
     });
   });
 
-  describe('Funçao validateUserInput', () => {
+  describe('Função validateUserInput', () => {
     it('deve validar com sucesso um usuário com todos os campos corretos', () => {
-      // Arrange para preparar
+      // Arrange
       const input: UserInput = {
         name: 'Carlos Silva',
         email: 'carlos.silva@fatec.sp.gov.br',
@@ -74,25 +76,25 @@ describe('Módulo de Validação: validators.ts', () => {
         role: 'aluno',
       };
 
-      //Act
+      // Act
       const validation = validateUserInput(input);
 
-      //Assert
+      // Assert
       expect(validation.isValid).toBe(true);
       expect(validation.errors).toHaveLength(0);
     });
 
     it('deve retornar erro quando o nome tiver menos de 3 caracteres', () => {
-      //Arrange
+      // Arrange
       const input: Partial<UserInput> = {
         name: 'AB',
         email: 'aluno@fatec.sp.gov.br',
       };
 
-      //Act
+      // Act
       const validation = validateUserInput(input);
 
-      //Assert
+      // Assert
       expect(validation.isValid).toBe(false);
       expect(validation.errors).toContain(
         'O nome deve conter no mínimo 3 caracteres.',
@@ -100,17 +102,17 @@ describe('Módulo de Validação: validators.ts', () => {
     });
 
     it('deve retornar erro para perfil de acesso inválido', () => {
-      //Arrange
+      // Arrange
       const input = {
         name: 'Carlos Silva',
         email: 'carlos.silva@fatec.sp.gov.br',
         role: 'visitante' as any,
       };
 
-      //ACT
+      // Act
       const validation = validateUserInput(input);
 
-      //Assert
+      // Assert
       expect(validation.isValid).toBe(false);
       expect(validation.errors).toContain(
         'O Perfil de acesso informado é inválido.',
