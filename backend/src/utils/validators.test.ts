@@ -118,5 +118,54 @@ describe('Módulo de Validação: validators.ts', () => {
         'O Perfil de acesso informado é inválido.',
       );
     });
+
+    it('deve retornar erro de e-mail quando o e-mail estiver ausente', () => {
+      // Arrange — cobre o branch onde input.email é undefined
+      const input: Partial<UserInput> = {
+        name: 'Carlos Silva',
+      };
+
+      // Act
+      const validation = validateUserInput(input);
+
+      // Assert
+      expect(validation.isValid).toBe(false);
+      expect(validation.errors).toContain('O e-mail informado é inválido.');
+    });
+
+    it('deve retornar erro de senha quando password for informado mas não atender os critérios', () => {
+      // Arrange — cobre o branch onde password !== undefined mas isStrongPassword retorna false
+      const input: Partial<UserInput> = {
+        name: 'Carlos Silva',
+        email: 'carlos.silva@fatec.sp.gov.br',
+        password: 'fraca',
+      };
+
+      // Act
+      const validation = validateUserInput(input);
+
+      // Assert
+      expect(validation.isValid).toBe(false);
+      expect(validation.errors).toContain(
+        'A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula e 1 número.',
+      );
+    });
+
+    it('não deve adicionar erro de senha quando password não for informado', () => {
+      // Arrange — cobre o branch onde password === undefined (campo opcional)
+      const input: Partial<UserInput> = {
+        name: 'Carlos Silva',
+        email: 'carlos.silva@fatec.sp.gov.br',
+      };
+
+      // Act
+      const validation = validateUserInput(input);
+
+      // Assert
+      expect(validation.isValid).toBe(true);
+      expect(validation.errors).not.toContain(
+        'A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula e 1 número.',
+      );
+    });
   });
 });
