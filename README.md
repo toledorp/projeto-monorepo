@@ -1,5 +1,9 @@
 # Projeto Monorepo FATEC
 
+# token do sonar qube
+# 5cc0e1d4e5c46247177332081fde0a336868781c
+
+
 ## Teste Skip ci
 
 ![Status do CI](https://github.com/i-davies/projeto-monorepo/actions/workflows/ci.yml/badge.svg)
