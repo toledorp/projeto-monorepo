@@ -107,7 +107,12 @@ describe('UserController.show', () => {
   });
 
   it('deve retornar 200 com dados do usuário', async () => {
-    const fakeUser = { id: 1, nome: 'Alice', email: 'alice@test.com', createdAt: new Date() };
+    const fakeUser = {
+      id: 1,
+      nome: 'Alice',
+      email: 'alice@test.com',
+      createdAt: new Date(),
+    };
     vi.mocked(User.findByPk).mockResolvedValue(fakeUser as any);
 
     const req = makeReq({ params: { id: '1' } });
@@ -137,33 +142,45 @@ describe('UserController.create', () => {
   beforeEach(() => vi.clearAllMocks());
 
   it('deve retornar 400 quando nome estiver ausente', async () => {
-    const req = makeReq({ body: { email: 'a@test.com', password: 'senha123' } });
+    const req = makeReq({
+      body: { email: 'a@test.com', password: 'senha123' },
+    });
     const res = makeRes();
 
     await UserController.create(req, res);
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'O campo nome é obrigatório.' });
+    expect(res.json).toHaveBeenCalledWith({
+      erro: 'O campo nome é obrigatório.',
+    });
   });
 
   it('deve retornar 400 quando nome for string vazia', async () => {
-    const req = makeReq({ body: { nome: '   ', email: 'a@test.com', password: 'senha123' } });
+    const req = makeReq({
+      body: { nome: '   ', email: 'a@test.com', password: 'senha123' },
+    });
     const res = makeRes();
 
     await UserController.create(req, res);
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'O campo nome é obrigatório.' });
+    expect(res.json).toHaveBeenCalledWith({
+      erro: 'O campo nome é obrigatório.',
+    });
   });
 
   it('deve retornar 400 para e-mail inválido', async () => {
-    const req = makeReq({ body: { nome: 'Alice', email: 'invalido', password: 'senha123' } });
+    const req = makeReq({
+      body: { nome: 'Alice', email: 'invalido', password: 'senha123' },
+    });
     const res = makeRes();
 
     await UserController.create(req, res);
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'Informe um e-mail valido.' });
+    expect(res.json).toHaveBeenCalledWith({
+      erro: 'Informe um e-mail valido.',
+    });
   });
 
   it('deve retornar 400 para e-mail ausente', async () => {
@@ -176,7 +193,9 @@ describe('UserController.create', () => {
   });
 
   it('deve retornar 400 para senha com menos de 6 caracteres', async () => {
-    const req = makeReq({ body: { nome: 'Alice', email: 'alice@test.com', password: '123' } });
+    const req = makeReq({
+      body: { nome: 'Alice', email: 'alice@test.com', password: '123' },
+    });
     const res = makeRes();
 
     await UserController.create(req, res);
@@ -190,7 +209,9 @@ describe('UserController.create', () => {
   it('deve retornar 400 quando e-mail já estiver cadastrado', async () => {
     vi.mocked(User.findOne).mockResolvedValue({ id: 1 } as any);
 
-    const req = makeReq({ body: { nome: 'Alice', email: 'alice@test.com', password: 'senha123' } });
+    const req = makeReq({
+      body: { nome: 'Alice', email: 'alice@test.com', password: 'senha123' },
+    });
     const res = makeRes();
 
     await UserController.create(req, res);
@@ -212,7 +233,9 @@ describe('UserController.create', () => {
     };
     vi.mocked(User.create).mockResolvedValue(fakeCreated as any);
 
-    const req = makeReq({ body: { nome: 'Alice', email: 'alice@test.com', password: 'senha123' } });
+    const req = makeReq({
+      body: { nome: 'Alice', email: 'alice@test.com', password: 'senha123' },
+    });
     const res = makeRes();
 
     await UserController.create(req, res);
@@ -229,7 +252,9 @@ describe('UserController.create', () => {
   it('deve retornar 500 em caso de erro inesperado', async () => {
     vi.mocked(User.findOne).mockRejectedValue(new Error('Falha'));
 
-    const req = makeReq({ body: { nome: 'Alice', email: 'alice@test.com', password: 'senha123' } });
+    const req = makeReq({
+      body: { nome: 'Alice', email: 'alice@test.com', password: 'senha123' },
+    });
     const res = makeRes();
 
     await UserController.create(req, res);
@@ -265,7 +290,12 @@ describe('UserController.update', () => {
   });
 
   it('deve retornar 404 quando nome for string inválida', async () => {
-    const fakeUser = { id: 1, nome: 'Alice', email: 'alice@test.com', save: vi.fn() };
+    const fakeUser = {
+      id: 1,
+      nome: 'Alice',
+      email: 'alice@test.com',
+      save: vi.fn(),
+    };
     vi.mocked(User.findByPk).mockResolvedValue(fakeUser as any);
 
     const req = makeReq({ params: { id: '1' }, body: { nome: '   ' } });
@@ -280,7 +310,12 @@ describe('UserController.update', () => {
   });
 
   it('deve retornar 400 quando e-mail for inválido', async () => {
-    const fakeUser = { id: 1, nome: 'Alice', email: 'alice@test.com', save: vi.fn() };
+    const fakeUser = {
+      id: 1,
+      nome: 'Alice',
+      email: 'alice@test.com',
+      save: vi.fn(),
+    };
     vi.mocked(User.findByPk).mockResolvedValue(fakeUser as any);
 
     const req = makeReq({ params: { id: '1' }, body: { email: 'invalido' } });
@@ -289,22 +324,34 @@ describe('UserController.update', () => {
     await UserController.update(req, res);
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'Informe um e-mail valido.' });
+    expect(res.json).toHaveBeenCalledWith({
+      erro: 'Informe um e-mail valido.',
+    });
   });
 
   it('deve retornar 400 quando e-mail já estiver em uso por outro usuário', async () => {
-    const fakeUser = { id: 1, nome: 'Alice', email: 'alice@test.com', save: vi.fn() };
+    const fakeUser = {
+      id: 1,
+      nome: 'Alice',
+      email: 'alice@test.com',
+      save: vi.fn(),
+    };
     const outroUser = { id: 2, nome: 'Bob', email: 'bob@test.com' };
     vi.mocked(User.findByPk).mockResolvedValue(fakeUser as any);
     vi.mocked(User.findOne).mockResolvedValue(outroUser as any);
 
-    const req = makeReq({ params: { id: '1' }, body: { email: 'bob@test.com' } });
+    const req = makeReq({
+      params: { id: '1' },
+      body: { email: 'bob@test.com' },
+    });
     const res = makeRes();
 
     await UserController.update(req, res);
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'Este e-mail já está em uso.' });
+    expect(res.json).toHaveBeenCalledWith({
+      erro: 'Este e-mail já está em uso.',
+    });
   });
 
   it('deve retornar 200 ao atualizar nome com sucesso', async () => {
@@ -317,7 +364,10 @@ describe('UserController.update', () => {
     };
     vi.mocked(User.findByPk).mockResolvedValue(fakeUser as any);
 
-    const req = makeReq({ params: { id: '1' }, body: { nome: 'Alice Atualizada' } });
+    const req = makeReq({
+      params: { id: '1' },
+      body: { nome: 'Alice Atualizada' },
+    });
     const res = makeRes();
 
     await UserController.update(req, res);
@@ -338,7 +388,10 @@ describe('UserController.update', () => {
     vi.mocked(User.findByPk).mockResolvedValue(fakeUser as any);
     vi.mocked(User.findOne).mockResolvedValue({ ...fakeUser, id: 1 } as any);
 
-    const req = makeReq({ params: { id: '1' }, body: { email: 'alice@test.com' } });
+    const req = makeReq({
+      params: { id: '1' },
+      body: { email: 'alice@test.com' },
+    });
     const res = makeRes();
 
     await UserController.update(req, res);

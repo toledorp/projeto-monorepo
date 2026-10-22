@@ -85,7 +85,10 @@ describe('AuthController.login', () => {
   it('deve retornar 401 quando usuário não for encontrado no banco', async () => {
     vi.mocked(User.findOne).mockResolvedValue(null);
 
-    const req = makeMockRequest({ email: 'inexistente@test.com', password: 'Senha123' });
+    const req = makeMockRequest({
+      email: 'inexistente@test.com',
+      password: 'Senha123',
+    });
     const res = makeMockResponse();
 
     await AuthController.login(req, res);
@@ -95,9 +98,16 @@ describe('AuthController.login', () => {
   });
 
   it('deve retornar 401 quando usuário não possuir senha_hash', async () => {
-    vi.mocked(User.findOne).mockResolvedValue({ id: 1, email: 'user@test.com', senha_hash: null } as any);
+    vi.mocked(User.findOne).mockResolvedValue({
+      id: 1,
+      email: 'user@test.com',
+      senha_hash: null,
+    } as any);
 
-    const req = makeMockRequest({ email: 'user@test.com', password: 'Senha123' });
+    const req = makeMockRequest({
+      email: 'user@test.com',
+      password: 'Senha123',
+    });
     const res = makeMockResponse();
 
     await AuthController.login(req, res);
@@ -114,7 +124,10 @@ describe('AuthController.login', () => {
     } as any);
     vi.mocked(bcrypt.compare).mockResolvedValue(false as never);
 
-    const req = makeMockRequest({ email: 'user@test.com', password: 'SenhaErrada' });
+    const req = makeMockRequest({
+      email: 'user@test.com',
+      password: 'SenhaErrada',
+    });
     const res = makeMockResponse();
 
     await AuthController.login(req, res);
@@ -134,7 +147,10 @@ describe('AuthController.login', () => {
     vi.mocked(bcrypt.compare).mockResolvedValue(true as never);
     vi.mocked(jwt.sign).mockReturnValue('fake.jwt.token' as never);
 
-    const req = makeMockRequest({ email: 'user@test.com', password: 'SenhaCorreta' });
+    const req = makeMockRequest({
+      email: 'user@test.com',
+      password: 'SenhaCorreta',
+    });
     const res = makeMockResponse();
 
     await AuthController.login(req, res);
@@ -147,14 +163,21 @@ describe('AuthController.login', () => {
   });
 
   it('deve retornar 500 quando ocorrer um erro inesperado', async () => {
-    vi.mocked(User.findOne).mockRejectedValue(new Error('Falha de conexão com o banco'));
+    vi.mocked(User.findOne).mockRejectedValue(
+      new Error('Falha de conexão com o banco'),
+    );
 
-    const req = makeMockRequest({ email: 'user@test.com', password: 'Senha123' });
+    const req = makeMockRequest({
+      email: 'user@test.com',
+      password: 'Senha123',
+    });
     const res = makeMockResponse();
 
     await AuthController.login(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'Falha de conexão com o banco' });
+    expect(res.json).toHaveBeenCalledWith({
+      erro: 'Falha de conexão com o banco',
+    });
   });
 });
