@@ -1,7 +1,7 @@
 # Projeto Monorepo FATEC
 
 # token do sonar qube
-# 5cc0e1d4e5c46247177332081fde0a336868781c
+# 3afba919b417ff6082da8561a11a4968473d7731
 
 
 ## Teste Skip ci
