@@ -1,42 +1,39 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 import { authMiddleware } from './authMiddleware';
 
-// ─── Mocks ─────────────────────────────────────────────────────────────────────
-
+// Mock do jsonwebtoken
 vi.mock('jsonwebtoken', () => ({
   default: {
+    sign: vi.fn(),
     verify: vi.fn(),
   },
 }));
 
-vi.mock('../config/auth', () => ({
-  JWT_SECRET: 'chave_secreta_teste',
-}));
+// Helper para criar mocks de req, res e next
+function createMocks() {
+  const req = {
+    headers: {},
+  } as unknown as Request;
 
-import jwt from 'jsonwebtoken';
+  const res = {
+    status: vi.fn().mockReturnThis(),
+    json: vi.fn().mockReturnThis(),
+  } as unknown as Response;
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
+  const next = vi.fn() as NextFunction;
 
-function makeRes(): any {
-  const res: any = {};
-  res.status = vi.fn().mockReturnValue(res);
-  res.json = vi.fn().mockReturnValue(res);
-  return res;
+  return { req, res, next };
 }
-
-function makeReq(headers: Record<string, string> = {}): any {
-  return { headers };
-}
-
-// ─── Testes ────────────────────────────────────────────────────────────────────
 
 describe('authMiddleware', () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-  it('deve retornar 401 quando o header Authorization estiver ausente', () => {
-    const req = makeReq({});
-    const res = makeRes();
-    const next = vi.fn();
+  it('deve retornar 401 se o header Authorization não estiver presente', () => {
+    const { req, res, next } = createMocks();
 
     authMiddleware(req, res, next);
 
@@ -45,10 +42,9 @@ describe('authMiddleware', () => {
     expect(next).not.toHaveBeenCalled();
   });
 
-  it('deve retornar 401 quando o header não começar com "Bearer "', () => {
-    const req = makeReq({ authorization: 'Basic algum-token' });
-    const res = makeRes();
-    const next = vi.fn();
+  it('deve retornar 401 se o header Authorization não começar com "Bearer "', () => {
+    const { req, res, next } = createMocks();
+    (req as any).headers.authorization = 'Basic token123';
 
     authMiddleware(req, res, next);
 
@@ -57,14 +53,13 @@ describe('authMiddleware', () => {
     expect(next).not.toHaveBeenCalled();
   });
 
-  it('deve retornar 401 quando o token JWT for inválido ou expirado', () => {
+  it('deve retornar 401 se o token for inválido ou expirado', () => {
+    const { req, res, next } = createMocks();
+    (req as any).headers.authorization = 'Bearer tokeninvalido';
+
     vi.mocked(jwt.verify).mockImplementation(() => {
-      throw new Error('jwt expired');
+      throw new Error('jwt malformed');
     });
-
-    const req = makeReq({ authorization: 'Bearer token.invalido.aqui' });
-    const res = makeRes();
-    const next = vi.fn();
 
     authMiddleware(req, res, next);
 
@@ -75,17 +70,16 @@ describe('authMiddleware', () => {
     expect(next).not.toHaveBeenCalled();
   });
 
-  it('deve chamar next() e anexar o usuário à request quando o token for válido', () => {
-    const decodedUser = { id: 1, email: 'user@test.com', nome: 'Alice' };
-    vi.mocked(jwt.verify).mockReturnValue(decodedUser as never);
+  it('deve chamar next() e salvar o usuário decodificado se o token for válido', () => {
+    const { req, res, next } = createMocks();
+    (req as any).headers.authorization = 'Bearer tokenvalido';
 
-    const req = makeReq({ authorization: 'Bearer token.valido.aqui' });
-    const res = makeRes();
-    const next = vi.fn();
+    const decodedUser = { id: 1, email: 'teste@email.com', nome: 'Teste' };
+    vi.mocked(jwt.verify).mockReturnValue(decodedUser as never);
 
     authMiddleware(req, res, next);
 
-    expect(next).toHaveBeenCalled();
+    expect(next).toHaveBeenCalledTimes(1);
     expect((req as any).user).toEqual(decodedUser);
     expect(res.status).not.toHaveBeenCalled();
   });

@@ -1,183 +1,135 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AuthController } from './AuthController';
+import request from 'supertest';
+import { app } from '../app';
+import { User } from '../models/User';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
-// ─── Mocks dos módulos externos ────────────────────────────────────────────────
-
+// Mock do model User
 vi.mock('../models/User', () => ({
   User: {
     findOne: vi.fn(),
   },
 }));
 
+// Mock do bcrypt
 vi.mock('bcryptjs', () => ({
   default: {
     compare: vi.fn(),
+    hash: vi.fn(),
   },
 }));
 
+// Mock do jsonwebtoken
 vi.mock('jsonwebtoken', () => ({
   default: {
     sign: vi.fn(),
+    verify: vi.fn(),
   },
 }));
 
-vi.mock('../config/auth', () => ({
-  JWT_SECRET: 'chave_secreta_teste',
-}));
-
-// ─── Helpers ───────────────────────────────────────────────────────────────────
-
-import { User } from '../models/User';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
-function makeMockResponse() {
-  const res: any = {};
-  res.status = vi.fn().mockReturnValue(res);
-  res.json = vi.fn().mockReturnValue(res);
-  return res;
-}
-
-function makeMockRequest(body: Record<string, unknown> = {}): any {
-  return { body };
-}
-
-// ─── Testes ────────────────────────────────────────────────────────────────────
-
-describe('AuthController.login', () => {
+describe('AuthController - POST /api/auth/login', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('deve retornar 400 quando email não for informado', async () => {
-    const req = makeMockRequest({ password: 'Senha123' });
-    const res = makeMockResponse();
+  it('deve retornar 400 se email e senha não forem fornecidos', async () => {
+    const response = await request(app).post('/api/auth/login').send({});
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      erro: 'Email e senha são obrigatórios',
-    });
+    expect(response.status).toBe(400);
+    expect(response.body.erro).toBe('Email e senha são obrigatórios');
   });
 
-  it('deve retornar 400 quando password não for informado', async () => {
-    const req = makeMockRequest({ email: 'user@test.com' });
-    const res = makeMockResponse();
+  it('deve retornar 400 se apenas o email for fornecido', async () => {
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'teste@email.com' });
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      erro: 'Email e senha são obrigatórios',
-    });
+    expect(response.status).toBe(400);
+    expect(response.body.erro).toBe('Email e senha são obrigatórios');
   });
 
-  it('deve retornar 400 quando email e password não forem informados', async () => {
-    const req = makeMockRequest({});
-    const res = makeMockResponse();
+  it('deve retornar 400 se apenas a senha for fornecida', async () => {
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ password: 'senha123' });
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(400);
+    expect(response.status).toBe(400);
+    expect(response.body.erro).toBe('Email e senha são obrigatórios');
   });
 
-  it('deve retornar 401 quando usuário não for encontrado no banco', async () => {
+  it('deve retornar 401 se o usuário não for encontrado', async () => {
     vi.mocked(User.findOne).mockResolvedValue(null);
 
-    const req = makeMockRequest({
-      email: 'inexistente@test.com',
-      password: 'Senha123',
-    });
-    const res = makeMockResponse();
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'naoexiste@email.com', password: 'senha123' });
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'Credenciais invalidas.' });
+    expect(response.status).toBe(401);
+    expect(response.body.erro).toBe('Credenciais invalidas.');
   });
 
-  it('deve retornar 401 quando usuário não possuir senha_hash', async () => {
+  it('deve retornar 401 se o usuário não tiver senha_hash', async () => {
     vi.mocked(User.findOne).mockResolvedValue({
       id: 1,
-      email: 'user@test.com',
+      email: 'teste@email.com',
+      nome: 'Teste',
       senha_hash: null,
     } as any);
 
-    const req = makeMockRequest({
-      email: 'user@test.com',
-      password: 'Senha123',
-    });
-    const res = makeMockResponse();
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'teste@email.com', password: 'senha123' });
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'Credenciais invalidas.' });
+    expect(response.status).toBe(401);
+    expect(response.body.erro).toBe('Credenciais invalidas.');
   });
 
-  it('deve retornar 401 quando a senha estiver incorreta', async () => {
+  it('deve retornar 401 se a senha estiver incorreta', async () => {
     vi.mocked(User.findOne).mockResolvedValue({
       id: 1,
-      email: 'user@test.com',
-      senha_hash: '$2a$10$hashhash',
+      email: 'teste@email.com',
+      nome: 'Teste',
+      senha_hash: '$2a$10$hashinvalida',
     } as any);
     vi.mocked(bcrypt.compare).mockResolvedValue(false as never);
 
-    const req = makeMockRequest({
-      email: 'user@test.com',
-      password: 'SenhaErrada',
-    });
-    const res = makeMockResponse();
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'teste@email.com', password: 'senhaerrada' });
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ erro: 'Credenciais invalidas.' });
+    expect(response.status).toBe(401);
+    expect(response.body.erro).toBe('Credenciais invalidas.');
   });
 
-  it('deve retornar 200 com token JWT quando as credenciais forem válidas', async () => {
+  it('deve retornar 200 e token JWT em login bem-sucedido', async () => {
     const fakeUser = {
-      id: 42,
-      email: 'user@test.com',
-      nome: 'Usuário Teste',
-      senha_hash: '$2a$10$hashhash',
+      id: 1,
+      email: 'teste@email.com',
+      nome: 'Teste Silva',
+      senha_hash: '$2a$10$hashvalido',
     };
     vi.mocked(User.findOne).mockResolvedValue(fakeUser as any);
     vi.mocked(bcrypt.compare).mockResolvedValue(true as never);
     vi.mocked(jwt.sign).mockReturnValue('fake.jwt.token' as never);
 
-    const req = makeMockRequest({
-      email: 'user@test.com',
-      password: 'SenhaCorreta',
-    });
-    const res = makeMockResponse();
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'teste@email.com', password: 'senha123' });
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({
-      mensagem: 'Login realizado com sucesso!',
-      token: 'fake.jwt.token',
-    });
+    expect(response.status).toBe(200);
+    expect(response.body.mensagem).toBe('Login realizado com sucesso!');
+    expect(response.body.token).toBe('fake.jwt.token');
   });
 
-  it('deve retornar 500 quando ocorrer um erro inesperado', async () => {
-    vi.mocked(User.findOne).mockRejectedValue(
-      new Error('Falha de conexão com o banco'),
-    );
+  it('deve retornar 500 se ocorrer um erro inesperado', async () => {
+    vi.mocked(User.findOne).mockRejectedValue(new Error('Erro de banco'));
 
-    const req = makeMockRequest({
-      email: 'user@test.com',
-      password: 'Senha123',
-    });
-    const res = makeMockResponse();
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'teste@email.com', password: 'senha123' });
 
-    await AuthController.login(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith({
-      erro: 'Falha de conexão com o banco',
-    });
+    expect(response.status).toBe(500);
+    expect(response.body.erro).toBe('Erro de banco');
   });
 });

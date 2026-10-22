@@ -6,34 +6,32 @@ export default defineConfig({
     environment: 'node',
     include: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
     exclude: ['node_modules', 'dist'],
-    coverage:{
-      //Define o provedor nativo V8
+    coverage: {
+      // Define o provedor nativo V8
       provider: 'v8',
 
-      //Diretorios onde os relatoris de cobertura serão gerados
+      // Diretório onde os relatórios HTML e LCOV serão salvos
       reportsDirectory: './coverage',
 
-      //Padrões de arquivos incluidos na analise de cobertura
+      // Padrões de arquivos incluídos na análise de cobertura
       include: ['src/**/*.ts'],
 
-      //Excluir arquivos e pastas que devem seer desconsiderados na analise de cobertura
+      // Arquivos e pastas que devem ser desconsiderados
       exclude: [
-        'src/**/*.test.ts', 
+        'src/**/*.test.ts',
         'src/**/*.spec.ts',
         'src/types/**',
         'src/server.ts',
-        'srs/migrations/**',
+        'src/migrations/**',
       ],
 
-      //Definição de limites mínimos obrigatórios (Quality Gate local)
+      // Definição de limites mínimos obrigatórios (Quality Gate local)
       thresholds: {
-        statements: 80,
-        branches: 75,
-        functions: 80,
         lines: 80,
+        functions: 80,
+        branches: 75,
+        statements: 80
       }
-
-
-    }
+    },
   },
 });

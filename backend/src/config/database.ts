@@ -20,9 +20,12 @@ const sequelizeOptions: Options = {
     : {},
 };
 
-export const sequelize = new Sequelize(
-  process.env.DB_NAME || 'postgres',
-  process.env.DB_USER || 'postgres',
-  process.env.DB_PASSWORD || '',
-  sequelizeOptions,
-);
+export const sequelize =
+  process.env.NODE_ENV === 'test'
+    ? new Sequelize({ dialect: 'sqlite', storage: ':memory:', logging: false })
+    : new Sequelize(
+        process.env.DB_NAME || 'postgres',
+        process.env.DB_USER || 'postgres',
+        process.env.DB_PASSWORD || '',
+        sequelizeOptions,
+      );
