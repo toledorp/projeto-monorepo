@@ -71,7 +71,7 @@ jobs:
         with:
           projectBaseDir: backend
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
       - name: 10. Validar SonarQube Quality Gate
@@ -80,7 +80,7 @@ jobs:
           scanMetadataReportFile: backend/.scannerwork/report-task.txt
         timeout-minutes: 5
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR-TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
       - name: 11. Publicar o relatorios de cobertura  no Resumo do Job
