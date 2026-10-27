@@ -41,8 +41,15 @@ export function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
-      <Card className="w-full max-w-md shadow-md">
+    <div className="login-layout">
+      <section className="login-intro" aria-labelledby="welcome-title">
+        <span className="eyebrow">PlatformHub ? Oficina de projetos</span>
+        <div className="clockwork" aria-hidden="true"><span /><span /><span /></div>
+        <h1 id="welcome-title">Grandes ideias.<br />Engrenagens em movimento.</h1>
+        <p>Seu espa?o para organizar projetos, conectar pessoas e dar ritmo ao trabalho.</p>
+        <span className="edition">EST. 2026 / FATEC DSM</span>
+      </section>
+      <Card className="login-card w-full shadow-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Entrar no Sistema</CardTitle>
           <CardDescription>Acesse o painel utilizando suas credenciais de acesso</CardDescription>

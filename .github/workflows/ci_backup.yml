@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: 1. Baixar o codigo fonte
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4cd
 
       - name: 2. Habilitar o pnpm
         uses: pnpm/action-setup@v4

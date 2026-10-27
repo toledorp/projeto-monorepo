@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <!-- Metadados de Indexacao e SEO Primario -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlatformHub | Gestão Ágil e Automação de Projetos</title>
+    <meta
+      name="description"
+      content="Acelere o ciclo de entrega da sua equipe com o PlatformHub. Orquestração ágil de sprints, autenticação segura e monitoramento em tempo real em um único ambiente."
+    />
+    <meta
+      name="keywords"
+      content="gestão ágil, projetos de software, scrum, kanban, react, typescript, api rest"
+    />
+    <meta name="author" content="Equipe DSM FATEC" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://toledorp.github.io/projeto-monorepo/" />
+
+    <!-- Metadados Sociais Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://toledorp.github.io/projeto-monorepo/"
+    />
+    <meta
+      property="og:title"
+      content="PlatformHub | Gestão Ágil e Automação de Projetos"
+    />
+    <meta
+      property="og:description"
+      content="Acelere o ciclo de entrega da sua equipe com o PlatformHub. Orquestração ágil de sprints, autenticação segura e monitoramento em tempo real."
+    />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=630&q=80"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Metadados Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:url"
+      content="https://toledorp.github.io/projeto-monorepo/"
+    />
+    <meta
+      name="twitter:title"
+      content="PlatformHub | Gestão Ágil e Automação de Projetos"
+    />
+    <meta
+      name="twitter:description"
+      content="Orquestração ágil de sprints, autenticação segura e monitoramento em tempo real."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&h=630&q=80"
+    />
+
+    <!-- Rich Snippets JSON-LD (Schema.org) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PlatformHub",
+        "url": "https://toledorp.github.io/projeto-monorepo/",
+        "description": "Plataforma de orquestração ágil de projetos com autenticação JWT e métricas em tempo real.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "Equipe DSM FATEC"
+        }
+      }
+    </script>
+
+        <!-- Favicon Vetorial Semantico -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234f46e5'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>"
+      type="image/svg+xml"
+    />
+    
+    
+    
+    <!-- Google Fonts: Inter e Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS via CDN Oficial com Script de Customizacao -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"IM Fell English"', "Georgia", "serif"],
+            },
+            colors: {
+              brand: {
+                50: "#eef2ff",
+                100: "#e0e7ff",
+                200: "#c7d2fe",
+                300: "#a5b4fc",
+                400: "#818cf8",
+                500: "#6366f1",
+                600: "#4f46e5",
+                700: "#4338ca",
+                800: "#3730a3",
+                900: "#312e81",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+      <link rel="stylesheet" href="./steampunk.css" />
+  </head>
+  <body
+    class="bg-slate-900 text-slate-100 selection:bg-brand-500 selection:text-white"
+  >
+    <!-- Efeito de Luz de Fundo com Gradiente Sutil -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div
+        class="absolute -top-40 left-1/2 -translate-x-1/2 w-250 h-125 bg-linear-to-tr from-brand-600/20 to-violet-500/10 blur-3xl rounded-full"
+      ></div>
+      <div
+        class="absolute top-160 -left-20 w-150 h-100 bg-brand-500/10 blur-3xl rounded-full"
+      ></div>
+    </div>
+
+    <!-- Cabecalho Semantico com Efeito Vidro (Glassmorphism) -->
+    <header
+      class="sticky top-0 z-50 w-full border-b border-slate-800/80 bg-slate-900/80 backdrop-blur-xl transition-all"
+    >
+      <div
+        class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4"
+      >
+        <!-- Logotipo e Marca -->
+        <a
+          href="#"
+          class="group flex items-center gap-3 text-lg font-bold tracking-tight text-white focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg p-1"
+        >
+          <span
+            class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-tr from-brand-600 to-violet-500 text-white shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform"
+          >
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </span>
+          <span class="text-xl"
+            >Platform<span class="text-brand-400">Hub</span></span
+          >
+        </a>
+
+        <!-- Navegacao Principal -->
+        <nav
+          class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300"
+        >
+          <a href="#recursos" class="hover:text-white transition-colors"
+            >Recursos</a
+          >
+          <a href="#demonstracao" class="hover:text-white transition-colors"
+            >Interface</a
+          >
+          <a href="#depoimentos" class="hover:text-white transition-colors"
+            >Depoimentos</a
+          >
+          <a href="#faq" class="hover:text-white transition-colors"
+            >Perguntas Frequentes</a
+          >
+        </nav>
+
+        <!-- Acoes de Acesso direcionando para a pasta /app -->
+        <div class="flex items-center gap-4">
+          <a
+            href="/app"
+            class="text-sm font-semibold text-slate-300 hover:text-white transition-colors px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
+          >
+            Entrar
+          </a>
+          <a
+            href="/app"
+            class="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-brand-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-600/30 hover:shadow-brand-600/50 hover:brightness-110 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500"
+          >
+            Acessar Sistema
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo-principal">
+      <!-- Seção Hero Banner -->
+      <section class="relative pt-24 pb-20 lg:pt-32 lg:pb-28">
+        <div class="mx-auto max-w-7xl px-6 text-center">
+          <!-- Selo Informativo de Versao -->
+          <div
+            class="inline-flex items-center gap-2.5 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-1.5 text-xs font-semibold text-brand-300 mb-8 backdrop-blur-md"
+          >
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"
+              ></span>
+            </span>
+            Versão 2.0: Autenticação JWT, Postgres Dual e Deploy Contínuo
+          </div>
+
+          <!-- Titulo Principal H1 com Gradiente de Texto -->
+          <h1
+            class="mx-auto max-w-4xl text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl leading-tight sm:leading-none"
+          >
+            Acelere suas entregas com
+            <span
+              class="text-transparent bg-clip-text bg-linear-to-r from-brand-400 via-indigo-300 to-violet-400"
+            >
+              agilidade e excelência técnica
+            </span>
+          </h1>
+
+          <!-- Subtitulo de Impacto -->
+          <p
+            class="mx-auto mt-7 max-w-2xl text-lg text-slate-400 leading-relaxed font-normal"
+          >
+            Orquestração unificada de squads, visibilidade de sprints ponta a
+            ponta e governança robusta com stack moderna em Node.js, React e
+            TypeScript.
+          </p>
+
+          <!-- Chamadas para Acao (CTAs com link para /app) -->
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/app"
+              class="inline-flex items-center gap-2.5 rounded-xl bg-linear-to-r from-brand-600 to-indigo-600 px-7 py-4 text-base font-semibold text-white shadow-lg shadow-brand-600/30 hover:shadow-brand-600/50 hover:brightness-110 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500"
+            >
+              Começar Gratuitamente
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+
+            <a
+              href="#demonstracao"
+              class="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-7 py-4 text-base font-semibold text-slate-200 hover:bg-slate-800 hover:text-white transition-all backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-slate-600"
+            >
+              Explorar Painel
+            </a>
+          </div>
+
+          <!-- Metricas de Validacao Social -->
+          <div
+            class="mt-16 grid grid-cols-2 gap-6 border-t border-slate-800 pt-10 sm:grid-cols-4 max-w-4xl mx-auto"
+          >
+            <div class="p-3">
+              <p class="text-3xl font-extrabold text-white tracking-tight">
+                +10.000
+              </p>
+              <p
+                class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-medium"
+              >
+                Usuários Ativos
+              </p>
+            </div>
+            <div class="p-3">
+              <p class="text-3xl font-extrabold text-white tracking-tight">
+                99.9%
+              </p>
+              <p
+                class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-medium"
+              >
+                Uptime Garantido
+              </p>
+            </div>
+            <div class="p-3">
+              <p class="text-3xl font-extrabold text-white tracking-tight">
+                &lt; 80ms
+              </p>
+              <p
+                class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-medium"
+              >
+                Latência de API
+              </p>
+            </div>
+            <div class="p-3">
+              <p class="text-3xl font-extrabold text-white tracking-tight">
+                4.9 / 5.0
+              </p>
+              <p
+                class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-medium"
+              >
+                Satisfação Técnica
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mockup Visual da Interface do Sistema (/app) -->
+      <section id="demonstracao" class="relative py-12">
+        <div class="mx-auto max-w-6xl px-6">
+          <div
+            class="relative rounded-2xl border border-slate-700/80 bg-slate-950/70 p-3 shadow-2xl shadow-brand-950/50 backdrop-blur-xl"
+          >
+            <!-- Barra de Navegador Simulada -->
+            <div
+              class="flex items-center justify-between border-b border-slate-800 px-4 py-3 text-xs text-slate-400"
+            >
+              <div class="flex items-center gap-2">
+                <span class="h-3 w-3 rounded-full bg-rose-500/80"></span>
+                <span class="h-3 w-3 rounded-full bg-amber-500/80"></span>
+                <span class="h-3 w-3 rounded-full bg-emerald-500/80"></span>
+              </div>
+              <div
+                class="rounded-md bg-slate-900 border border-slate-800 px-6 py-1 font-mono text-xs text-slate-400"
+              >
+                https://app.platformhub.io/dashboard
+              </div>
+              <div class="h-3 w-3"></div>
+            </div>
+
+            <!-- Corpo da Interface Ilustrativa -->
+            <div class="p-6 md:p-8 space-y-6">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+              >
+                <div>
+                  <h3 class="text-xl font-bold text-white">
+                    Painel da Squad • Sprint 14
+                  </h3>
+                  <p class="text-xs text-slate-400 mt-0.5">
+                    Visão consolidada de produtividade, commits e deploys ativos
+                  </p>
+                </div>
+                <div>
+                  <span
+                    class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 text-xs font-semibold text-emerald-400"
+                  >
+                    <span
+                      class="h-1.5 w-1.5 rounded-full bg-emerald-400"
+                    ></span>
+                    Produção Operacional
+                  </span>
+                </div>
+              </div>
+
+              <!-- Cartões de KPI -->
+              <div class="grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-4">
+                <div
+                  class="rounded-xl border border-slate-800 bg-slate-900/60 p-4"
+                >
+                  <p class="text-xs font-medium text-slate-400">
+                    Issues Concluídas
+                  </p>
+                  <p class="text-2xl font-bold text-white mt-1">42 / 48</p>
+                  <div
+                    class="mt-3 w-full bg-slate-800 h-1.5 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="bg-brand-500 h-1.5 rounded-full"
+                      style="width: 87%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div
+                  class="rounded-xl border border-slate-800 bg-slate-900/60 p-4"
+                >
+                  <p class="text-xs font-medium text-slate-400">
+                    Tempo Médio de Resolução
+                  </p>
+                  <p class="text-2xl font-bold text-white mt-1">1.8 dias</p>
+                  <p class="text-xs text-emerald-400 mt-2">
+                    ↓ 24% em relação à sprint anterior
+                  </p>
+                </div>
+
+                <div
+                  class="rounded-xl border border-slate-800 bg-slate-900/60 p-4"
+                >
+                  <p class="text-xs font-medium text-slate-400">
+                    Taxa de Sucesso em CI/CD
+                  </p>
+                  <p class="text-2xl font-bold text-white mt-1">99.4%</p>
+                  <p class="text-xs text-brand-400 mt-2">
+                    ✓ 138 builds aprovados sem falhas
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Grade de Recursos e Funcionalidades -->
+      <section id="recursos" class="py-24 border-t border-slate-800">
+        <div class="mx-auto max-w-7xl px-6">
+          <div class="text-center max-w-2xl mx-auto">
+            <h2
+              class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
+            >
+              Arquitetura sólida para equipes de alta performance
+            </h2>
+            <p class="mt-4 text-base text-slate-400">
+              Cada componente foi planejado para maximizar a autonomia das
+              squads e a governança de software.
+            </p>
+          </div>
+
+          <div
+            class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr] gap-8"
+          >
+            <!-- Recurso 1: Autenticacao -->
+            <article
+              class="rounded-2xl border border-slate-800 bg-slate-900/50 p-7 hover:border-brand-500/40 hover:bg-slate-900/80 transition-all group"
+            >
+              <div
+                class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-all"
+              >
+                <svg
+                  class="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="11"
+                    rx="2"
+                    ry="2"
+                  ></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <h3 class="mt-5 text-lg font-bold text-white">
+                Autenticação JWT Segura
+              </h3>
+              <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+                Tokens criptografados com suporte a refresh, controle de papéis
+                por usuário e middleware de proteção no Express.
+              </p>
+            </article>
+
+            <!-- Recurso 2: Roteamento -->
+            <article
+              class="rounded-2xl border border-slate-800 bg-slate-900/50 p-7 hover:border-brand-500/40 hover:bg-slate-900/80 transition-all group"
+            >
+              <div
+                class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all"
+              >
+                <svg
+                  class="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                  ></path>
+                  <line x1="4" y1="22" x2="4" y2="15"></line>
+                </svg>
+              </div>
+              <h3 class="mt-5 text-lg font-bold text-white">
+                Roteamento e Guard Routes
+              </h3>
+              <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+                Proteção declarativa de telas no cliente utilizando React Router
+                e Context API para gestão global da sessão.
+              </p>
+            </article>
+
+            <!-- Recurso 3: Banco Dual -->
+            <article
+              class="rounded-2xl border border-slate-800 bg-slate-900/50 p-7 hover:border-brand-500/40 hover:bg-slate-900/80 transition-all group"
+            >
+              <div
+                class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 group-hover:bg-violet-500 group-hover:text-white transition-all"
+              >
+                <svg
+                  class="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </div>
+              <h3 class="mt-5 text-lg font-bold text-white">PostgreSQL Dual</h3>
+              <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+                Flexibilidade absoluta com Sequelize ORM: execute testes locais
+                em Docker ou sincronize na nuvem com Supabase.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prova Social e Depoimentos -->
+      <section
+        id="depoimentos"
+        class="py-24 bg-slate-950/60 border-t border-slate-800"
+      >
+        <div class="mx-auto max-w-7xl px-6">
+          <div class="text-center max-w-2xl mx-auto">
+            <h2
+              class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
+            >
+              Aprovado por quem desenvolve na prática
+            </h2>
+            <p class="mt-4 text-base text-slate-400">
+              Relatos reais de engenheiros que utilizam a arquitetura para
+              acelerar projetos web.
+            </p>
+          </div>
+
+          <div class="mt-16 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-8">
+            <article
+              class="rounded-2xl border border-slate-800 bg-slate-900/40 p-7 flex flex-col justify-between"
+            >
+              <div>
+                <div class="flex items-center gap-1 text-amber-400">
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                </div>
+                <p class="mt-4 text-sm text-slate-300 leading-relaxed italic">
+                  "O desacoplamento da landing no Pages e o app principal
+                  garantiu velocidade máxima e clareza para a apresentação do
+                  projeto."
+                </p>
+              </div>
+              <div
+                class="mt-6 flex items-center gap-3 pt-6 border-t border-slate-800"
+              >
+                <div
+                  class="h-10 w-10 rounded-full bg-brand-600/30 border border-brand-500/50 flex items-center justify-center font-bold text-brand-300 text-sm"
+                >
+                  GF
+                </div>
+                <div>
+                  <h3 class="text-sm font-semibold text-white">
+                    Gabriel Ferreira
+                  </h3>
+                  <p class="text-xs text-slate-400">Desenvolvedor Full Stack</p>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="rounded-2xl border border-slate-800 bg-slate-900/40 p-7 flex flex-col justify-between"
+            >
+              <div>
+                <div class="flex items-center gap-1 text-amber-400">
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                </div>
+                <p class="mt-4 text-sm text-slate-300 leading-relaxed italic">
+                  "Pontuação máxima no Lighthouse em SEO e Acessibilidade obtida
+                  diretamente através da semântica limpa."
+                </p>
+              </div>
+              <div
+                class="mt-6 flex items-center gap-3 pt-6 border-t border-slate-800"
+              >
+                <div
+                  class="h-10 w-10 rounded-full bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center font-bold text-indigo-300 text-sm"
+                >
+                  LA
+                </div>
+                <div>
+                  <h3 class="text-sm font-semibold text-white">
+                    Larissa Almeida
+                  </h3>
+                  <p class="text-xs text-slate-400">Scrum Master & QA</p>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="rounded-2xl border border-slate-800 bg-slate-900/40 p-7 flex flex-col justify-between"
+            >
+              <div>
+                <div class="flex items-center gap-1 text-amber-400">
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                    ></path>
+                  </svg>
+                </div>
+                <p class="mt-4 text-sm text-slate-300 leading-relaxed italic">
+                  "O pipeline dispara apenas ao alterar a pasta landing. Zero
+                  atrito para atualizar o portal público."
+                </p>
+              </div>
+              <div
+                class="mt-6 flex items-center gap-3 pt-6 border-t border-slate-800"
+              >
+                <div
+                  class="h-10 w-10 rounded-full bg-violet-600/30 border border-violet-500/50 flex items-center justify-center font-bold text-violet-300 text-sm"
+                >
+                  MT
+                </div>
+                <div>
+                  <h3 class="text-sm font-semibold text-white">
+                    Matheus Teles
+                  </h3>
+                  <p class="text-xs text-slate-400">Arquiteto de Software</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Banner Final de Call to Action (CTA) direcionando para /app -->
+      <section class="relative py-20 border-t border-slate-800 overflow-hidden">
+        <div class="mx-auto max-w-7xl px-6">
+          <div
+            class="relative overflow-hidden rounded-3xl bg-linear-to-r from-brand-900 via-indigo-950 to-slate-900 px-8 py-16 text-center border border-brand-500/30 shadow-2xl"
+          >
+            <div class="relative z-10 mx-auto max-w-3xl">
+              <h2
+                class="text-3xl font-extrabold tracking-tight text-white sm:text-5xl"
+              >
+                Pronto para transformar a gestão dos seus projetos?
+              </h2>
+              <p
+                class="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed"
+              >
+                Crie sua conta agora mesmo ou acesse o painel desenvolvido ao
+                longo do semestre de Laboratório de Desenvolvimento Web.
+              </p>
+
+              <div
+                class="mt-10 flex flex-wrap items-center justify-center gap-4"
+              >
+                <a
+                  href="/app"
+                  class="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-base font-bold text-slate-950 shadow-lg hover:bg-slate-100 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-white"
+                >
+                  Acessar Plataforma Web
+                  <svg
+                    class="h-5 w-5 text-slate-900"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé Semântico -->
+    <footer
+      class="border-t border-slate-800 bg-slate-950 py-14 text-sm text-slate-400"
+    >
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="col-span-2 md:col-span-1">
+            <a
+              href="#"
+              class="flex items-center gap-2 text-lg font-bold text-white"
+            >
+              <span
+                class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white font-bold text-sm"
+              >
+                P
+              </span>
+              <span>Platform<span class="text-brand-400">Hub</span></span>
+            </a>
+            <p class="mt-3 text-xs text-slate-500 leading-relaxed">
+              Plataforma desenvolvida no curso de Desenvolvimento de Sistemas
+              Multiplataforma (DSM) - FATEC.
+            </p>
+          </div>
+
+          <div>
+            <h3
+              class="text-xs font-semibold uppercase tracking-wider text-slate-300"
+            >
+              Navegação
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-xs">
+              <li>
+                <a href="#recursos" class="hover:text-white transition-colors"
+                  >Recursos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#demonstracao"
+                  class="hover:text-white transition-colors"
+                  >Interface</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#depoimentos"
+                  class="hover:text-white transition-colors"
+                  >Depoimentos</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3
+              class="text-xs font-semibold uppercase tracking-wider text-slate-300"
+            >
+              Aplicação
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-xs">
+              <li>
+                <a href="/app" class="hover:text-white transition-colors"
+                  >Login no Sistema</a
+                >
+              </li>
+              <li>
+                <a href="/app" class="hover:text-white transition-colors"
+                  >Cadastro de Usuário</a
+                >
+              </li>
+              <li>
+                <a href="/app" class="hover:text-white transition-colors"
+                  >Painel Autenticado</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3
+              class="text-xs font-semibold uppercase tracking-wider text-slate-300"
+            >
+              Conformidade
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-xs">
+              <li><span class="text-slate-500">Privacidade (LGPD)</span></li>
+              <li><span class="text-slate-500">Termos de Uso</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="mt-12 flex flex-col sm:flex-row items-center justify-between border-t border-slate-900 pt-8 text-xs text-slate-600"
+        >
+          <p>© 2026 PlatformHub. Todos os direitos reservados. FATEC DSM.</p>
+          <p class="mt-2 sm:mt-0">
+            Hospedado via GitHub Pages com CI/CD automatizado.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
