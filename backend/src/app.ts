@@ -3,12 +3,14 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './docs/swagger.json';
 import cors from 'cors';
 import { appRoutes } from './routes';
+import { healthRoutes } from './routes/healthRoutes';
 
 const app = express();
 
 // Middlewares globais
 app.use(cors());
 app.use(express.json());
+app.use(healthRoutes);
 
 // Rota de Health Check
 app.get('/api/health', (req: Request, res: Response) => {

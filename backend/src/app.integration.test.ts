@@ -3,6 +3,16 @@ import request from 'supertest';
 import { app } from './app';
 
 describe('Testes de Integração: Endpoints Base da Aplicação', () => {
+  it('deve expor o health check com métricas em /health', async () => {
+    const response = await request(app).get('/health');
+
+    expect(response.status).toBe(200);
+    expect(response.body.status).toBe('ok');
+    expect(response.body.uptime).toBeGreaterThanOrEqual(0);
+    expect(Number.isNaN(Date.parse(response.body.timestamp))).toBe(false);
+    expect(response.body.memoryUsage.rss).toMatch(/^\d+ MB$/);
+  });
+
   describe('GET /api/health', () => {
     it('deve responder com status 200 e payload de status operacional', async () => {
       // Act: Dispara a requisição HTTP para a rota de health check
